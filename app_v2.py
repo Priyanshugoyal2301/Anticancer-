@@ -390,7 +390,7 @@ with col_in:
         mol_draw = Chem.MolFromSmiles(smiles_list[0])
         if mol_draw:
             img = Draw.MolToImage(mol_draw, size=(300, 220))
-            st.image(img, caption="2D Structure", use_column_width=True)
+            st.image(img, caption="2D Structure", use_container_width=True)
 
 # ─── Prediction & Results ────────────────────────────────────
 with col_res:
@@ -483,7 +483,7 @@ with col_res:
                 ax.set_title("Model Comparison — Probability of Activity",fontsize=12)
                 ax.legend(fontsize=9); plt.tight_layout()
                 buf = io.BytesIO(); fig.savefig(buf,format="png",dpi=120); buf.seek(0)
-                st.image(buf, use_column_width=True)
+                st.image(buf, use_container_width=True)
                 plt.close()
 
         # ── MODE 3: Compare all 4 conditions (one model) ─────
@@ -539,7 +539,7 @@ with col_res:
                 ax.set_title(f"{sel_model} — Condition Comparison", fontsize=12)
                 ax.legend(fontsize=8); plt.tight_layout()
                 buf = io.BytesIO(); fig.savefig(buf,format="png",dpi=120); buf.seek(0)
-                st.image(buf, use_column_width=True)
+                st.image(buf, use_container_width=True)
                 plt.close()
 
     elif predict_btn:
@@ -565,7 +565,7 @@ with st.expander("📈 View Training Results Summary (from results_summary.csv)"
             ax.set_title("AUC — All Models × All Conditions", fontsize=12, fontweight="bold")
             plt.tight_layout()
             buf = io.BytesIO(); fig.savefig(buf,format="png",dpi=120); buf.seek(0)
-            st.image(buf, use_column_width=True); plt.close()
+            st.image(buf, use_container_width=True); plt.close()
     else:
         st.info("Run training first — `results_summary.csv` will appear here.")
 

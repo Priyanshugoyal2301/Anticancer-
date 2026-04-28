@@ -1,5 +1,5 @@
---find-links https://data.pyg.org/whl/torch-2.1.0+cpu.html
-torch==2.1.0
+--find-links https://data.pyg.org/whl/torch-2.9.0+cpu.html
+torch==2.9.0
 torch-geometric>=2.4.0
 torch-scatter
 torch-sparse

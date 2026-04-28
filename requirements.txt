@@ -3,7 +3,7 @@ torch==2.9.0
 torch-geometric>=2.4.0
 torch-scatter
 torch-sparse
-rdkit-pypi>=2022.9.5
+rdkit
 numpy<2
 pandas>=2.0.0
 scikit-learn>=1.3.0

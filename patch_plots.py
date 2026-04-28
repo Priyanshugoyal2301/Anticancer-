@@ -484,3 +484,56 @@ print("   15_AugGain_summary.png")
 print("   00_AUC_ranking_heatmap.png")
 print("   00_RMSE_ranking_heatmap.png")
 print("\n→ Now run:  streamlit run app_v2.py")
+
+# ============================================================
+# ▶ GENERATE results_summary.csv
+# ============================================================
+print("\n━━━ Generating results_summary.csv ━━━")
+
+from sklearn.metrics import (
+    accuracy_score, matthews_corrcoef, f1_score,
+    precision_score, balanced_accuracy_score,
+    mean_absolute_error, confusion_matrix
+)
+
+rows = []
+for mname in MODEL_NAMES:
+    for cond in COND_NAMES:
+        if cond not in agg_data.get(mname, {}):
+            continue
+        d      = agg_data[mname][cond]
+        probs  = d["probs"]
+        labels = d["labels"]
+        rp     = d["reg_pred"]
+        rt     = d["reg_true"]
+
+        # Best threshold via ROC
+        fpr_v, tpr_v, thr_v = roc_curve(labels, probs)
+        best_t = float(thr_v[np.argmax(tpr_v - fpr_v)])
+        preds  = (probs >= best_t).astype(int)
+
+        cm   = confusion_matrix(labels, preds).ravel()
+        tn, fp_, fn, tp = cm if len(cm) == 4 else [0, 0, 0, len(labels)]
+
+        row = {
+            "Model"      : mname,
+            "Condition"  : COND_LABELS[cond],
+            "ACC"        : round(float(accuracy_score(labels, preds)), 4),
+            "AUC"        : round(float(roc_auc_score(labels, probs)), 4),
+            "MCC"        : round(float(matthews_corrcoef(labels, preds)), 4),
+            "Sensitivity": round(float(tp / (tp + fn + 1e-8)), 4),
+            "Specificity": round(float(tn / (tn + fp_ + 1e-8)), 4),
+            "F1"         : round(float(f1_score(labels, preds, zero_division=0)), 4),
+            "Precision"  : round(float(precision_score(labels, preds, zero_division=0)), 4),
+            "BAcc"       : round(float(balanced_accuracy_score(labels, preds)), 4),
+            "RMSE"       : round(float(np.sqrt(mean_squared_error(rt, rp))), 4),
+            "MAE"        : round(float(mean_absolute_error(rt, rp)), 4),
+            "R2"         : round(float(r2_score(rt, rp)), 4),
+        }
+        rows.append(row)
+        print(f"  {mname:4s} x {cond:20s} | AUC={row['AUC']}  ACC={row['ACC']}  R2={row['R2']}  RMSE={row['RMSE']}")
+
+summary_df = pd.DataFrame(rows)
+summary_df.to_csv("results_summary.csv", index=False)
+print("\n✅ results_summary.csv saved!")
+print(summary_df.to_string(index=False))

@@ -1,0 +1,23 @@
+# Core deep learning
+torch>=2.0.0
+torch-geometric>=2.4.0
+torch-scatter
+torch-sparse
+
+# Chemistry
+rdkit-pypi>=2022.9.5
+
+# Numerical / Data
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.13.0
+
+# Deployment
+streamlit>=1.28.0
+
+# Utilities
+tqdm>=4.66.0

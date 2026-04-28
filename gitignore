@@ -1,0 +1,61 @@
+# ============================================================
+# .gitignore — Anticancer GNN Project
+# ============================================================
+
+# ── Virtual Environment ──────────────────────────────────────
+anticancer_env/
+venv/
+env/
+.venv/
+*.egg-info/
+
+# ── Python Cache ─────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ── Saved Model Checkpoints (too large for GitHub) ───────────
+saved_models/
+*.pt
+*.pth
+*.ckpt
+*.bin
+
+# ── Plots (generated, not needed in repo) ────────────────────
+
+
+# ── Dataset (large file) ─────────────────────────────────────
+
+# ── Jupyter Notebook Checkpoints ─────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── OS Files ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE Files ────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── Logs & Temp ──────────────────────────────────────────────
+*.log
+*.tmp
+*.temp
+logs/
+tmp/
+
+# ── Build / Dist ─────────────────────────────────────────────
+build/
+dist/
+*.egg-info/
+
+# ── Environment Variables ────────────────────────────────────
+.env
+.env.local
+secrets.json
